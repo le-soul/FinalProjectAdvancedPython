@@ -51,6 +51,7 @@ class DecisionClass:
         y_pred = tree_model.predict(X_test)
 
         # display the precision and recall
+        print("Accuracy: ",round(100*accuracy_score(y_test, y_pred),1),"%")
         print("Precision: ",round(100*precision_score(y_test, y_pred),1),"%")
         print("Recall: ",round(100*recall_score(y_test, y_pred),1),"%")
         print("F1 score: ",round(100*f1_score(y_test, y_pred),1),"%")
@@ -77,6 +78,7 @@ class DecisionClass:
         y_pred = tree_model.predict(X_test)
 
         # display the precision and recall
+        print("Accuracy: ",round(100*accuracy_score(y_test, y_pred),1),"%")
         print("Precision: ",round(100*precision_score(y_test, y_pred),1),"%")
         print("Recall: ",round(100*recall_score(y_test, y_pred),1),"%")
         print("F1 score: ",round(100*f1_score(y_test, y_pred),1),"%")
