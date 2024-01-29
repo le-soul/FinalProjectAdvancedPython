@@ -32,7 +32,7 @@ class CleaningClass:
                     'is_exact_address_hidden','street_name','street_number','portal','floor','is_floor_under','door','operation','rent_price',
                     'rent_price_by_area','is_rent_price_known','buy_price_by_area','is_buy_price_known','has_central_heating','has_individual_heating',
                     'are_pets_allowed','is_furnished','is_kitchen_equipped','has_garden','is_renewal_needed','energy_certificate','has_private_parking','has_public_parking',
-                    'is_parking_included_in_price','parking_price','is_orientation_north','is_orientation_west','is_orientation_south','is_orientation_east'])
+                    'is_parking_included_in_price','parking_price','is_orientation_north','is_orientation_west','is_orientation_south','is_orientation_east', 'house_type_id'])
         collist=['has_ac','has_fitted_wardrobes','has_pool','has_terrace','has_balcony','has_storage_room','is_accessible','has_green_zones']
         for col in collist:
             self.df[col]=self.df[col].fillna(False)
@@ -48,7 +48,7 @@ class CleaningClass:
         self.df.neighborhood_id = self.df.neighborhood_id.str.extract(r'(Neighborhood \d+)')
         self.df.district_id = self.df.district_id.str.extract(r'(\d+)')
         self.df.neighborhood_id = self.df.neighborhood_id.str.extract(r'(\d+)')
-        self.df.drop(columns='neighborhood_id')
+        self.df.drop(columns='neighborhood_id', inplace=True)
         self.df = self.df[self.df['built_year'] != 8170]
         self.df['has_parking'] = self.df['has_parking'].astype(int)
         self.df['has_ac'] = self.df['has_ac'].astype(int)

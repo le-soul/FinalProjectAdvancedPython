@@ -40,6 +40,7 @@ def view_data(graphs, input, output):
     cleaner = cl.CleaningClass(load)
     df = cleaner.clean_data()
     viewer = ViewClass(df)
+
     if not os.path.exists(output):
         os.makedirs(output)
     if graphs:
@@ -59,7 +60,7 @@ def view_data(graphs, input, output):
             graph_path = os.path.join(output, 'most_bathrooms_districts.png')
             viewer.most_bathrooms_districts()
         elif graphs == 'price x variables':
-            graph_path = os.path.join(output, 'price_and.png')
+            graph_path = os.path.join(output, 'scatter_price_x_variables.png')
             viewer.price_and()
         else:
             print("Invalid option for graph. Choose from: correlation, price skewness, most exp districts, most rooms districts, most bathrooms districs, price x variables")
@@ -68,31 +69,36 @@ def view_data(graphs, input, output):
         print(f"Graph saved at: {graph_path}")
 
 @cli.command(short_help='')
+@click.option('-r', '--regression', is_flag=True, help='')
 @click.option('-ln', '--linearregression', help='Choose which to display: regression or multicollinearity+')
 @click.option("-i", "--input", required=True, help="File to import")
 @click.option("-o", "--output", default="outputs", help="Output directory to save the graphs")
+@click.option("-css", "--classifier", is_flag=True, help="")
+@click.option("-d", "--decisiontree", help="Choose which to display: has ac or has parking")
 
-def training(input, output, linearregression, decisiontree):
+def training(input, output, regression, linearregression, classifier, decisiontree):
     """
     Function to predict
     """
     load = load_dataset(input)
-    df = cl.CleaningClass.clean_data(load)
+    cleaner = cl.CleaningClass(load)
+    df = cleaner.clean_data()
     trainer = PredictClass(df)
-    if linearregression:
+    if regression:
         if linearregression == "regression":
             graph_path = os.path.join(output, 'Linear_Regression.png')
             trainer.price_as_y()
+            plt.savefig(graph_path)
+            print(f"Graph saved at: {graph_path}")
         elif linearregression == "multicollinearity+":
             trainer.multicollinearity_and_model_equation()
         else:
             print("Invalid option for regression. Choose from: regression or multicollinearity+")
             return
-        plt.savefig(graph_path)
-        print(f"Graph saved at: {graph_path}")
+        
     
     tree = DecisionClass(df)
-    if decisiontree:
+    if classifier:
         if decisiontree == "has ac":
             graph_path = os.path.join(output, 'Decision_Tree_Ac.png')
             tree.decision_tree_ac()

@@ -18,7 +18,7 @@ class ViewClass:
         """
 
         corrmat = self.df.corr()
-        f, ax = plt.subplots(figsize=(12, 9))
+        f, ax = plt.subplots(figsize=(14, 12))
         sns.heatmap(corrmat, vmax=.8, square=True)
 
     def price_skewness(self):
@@ -64,7 +64,7 @@ class ViewClass:
         Function see the number of bathrooms per district in average plotted
         """
 
-        average_rooms_per_district = df.groupby('district_id')['n_bathrooms'].mean().nlargest(21)
+        average_rooms_per_district = self.df.groupby('district_id')['n_bathrooms'].mean().nlargest(21)
 
         plt.figure(figsize=(10, 6))
         average_rooms_per_district.plot(kind='bar', color='#ffcccb')
@@ -79,14 +79,19 @@ class ViewClass:
         Scatter plots showing relationship between house buying price and various features.
         """
 
-        f, (ax1, ax2, ax3, ax4) = plt.subplots(1, 4, sharey=True, figsize=(20, 4))
-        ax1.scatter(self.df['built_year'], self.df['buy_price'])
+        f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharey=True, figsize=(20, 10))
+        ax1.scatter(self.df['built_year'], self.df['buy_price'], color='purple')
         ax1.set_title('Price and Year Built')
-        ax2.scatter(self.df['sq_mt_built'], self.df['buy_price'])
+        ax2.scatter(self.df['sq_mt_built'], self.df['buy_price'], color='purple')
         ax2.set_title('Price and Space')
-        ax3.scatter(self.df['n_bathrooms'], self.df['buy_price'])
+        ax3.scatter(self.df['n_bathrooms'], self.df['buy_price'], color='purple')
         ax3.set_title('Price and number of Bathrooms')
-        ax4.scatter(self.df['n_rooms'], self.df['buy_price'])
+        ax4.scatter(self.df['n_rooms'], self.df['buy_price'], color='purple')
         ax4.set_title('Price and number of Rooms')
+
+        plt.tight_layout()
+
+
+
 
     

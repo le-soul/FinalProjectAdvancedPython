@@ -46,7 +46,7 @@ class PredictClass:
 
     def multicollinearity_and_model_equation(self):
         """
-        aaaaaaaaaaaaaaaaaaaaaa
+        Shows the multicollinearity, the R squared of the linear regression and creates a model for use
         """
 
         
@@ -81,8 +81,9 @@ class PredictClass:
         print(f'Root Mean Squared Error (RMSE): {rmse}')
 
         # Get the coefficients and intercept
-        coefficients = model.coef_
-        intercept = model.intercept_
+        params = model.params
+        intercept = params['const']
+        coefficients = params.drop('const')
 
         print("Buy Price =", end=" ")
         for i in range(len(coefficients)):
