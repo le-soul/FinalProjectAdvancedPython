@@ -26,7 +26,7 @@ class ViewClass:
         Function to see the skewness in the buying price of houses in Madrid
         """
 
-        sns.distplot(self.df['buy_price'])
+        sns.histplot(self.df['buy_price'], kde=True, stat="density", kde_kws=dict(cut=3), alpha=.4, edgecolor=(1, 1, 1, .4), bins=40)
         print("Skewness: %f" % self.df['buy_price'].skew())
 
     def most_exp_districts(self):

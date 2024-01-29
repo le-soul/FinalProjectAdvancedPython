@@ -1,5 +1,5 @@
 """
-Cleaning Class
+Here is the cleaning class located for the cleaning of data
 """
 
 
@@ -26,8 +26,8 @@ class CleaningClass:
         """
         Cleans the data to be able to conduct analysis
         """
-        self.df = self.df.drop(columns=['Unnamed: 0'], inplace=True)
-        self.df = self.df.sort_index(axis=0, inplace=True)
+        self.df = self.df.drop(columns=['Unnamed: 0'])
+        self.df = self.df.sort_index(axis=0)
         self.df = self.df.drop(columns=['title','subtitle','sq_mt_useful','n_floors','sq_mt_allotment','latitude','longitude','raw_address',
                     'is_exact_address_hidden','street_name','street_number','portal','floor','is_floor_under','door','operation','rent_price',
                     'rent_price_by_area','is_rent_price_known','buy_price_by_area','is_buy_price_known','has_central_heating','has_individual_heating',
@@ -46,10 +46,13 @@ class CleaningClass:
         self.df['district_id'] = self.df['neighborhood_id'].copy()
         self.df.district_id = self.df.district_id.str.extract(r'(District \d+)')
         self.df.neighborhood_id = self.df.neighborhood_id.str.extract(r'(Neighborhood \d+)')
-        self.df.district_id=df.district_id.str.extract(r'(\d+)')
-        self.df.neighborhood_id=df.neighborhood_id.str.extract(r'(\d+)')
-        self.df.drop(columns='neighborhood_id', inplace=True)
+        self.df.district_id = self.df.district_id.str.extract(r'(\d+)')
+        self.df.neighborhood_id = self.df.neighborhood_id.str.extract(r'(\d+)')
+        self.df.drop(columns='neighborhood_id')
         self.df = self.df[self.df['built_year'] != 8170]
+        self.df['has_parking'] = self.df['has_parking'].astype(int)
+        self.df['has_ac'] = self.df['has_ac'].astype(int)
+        self.df['district_id'] = self.df['district_id'].astype(int)
 
         return self.df
 
