@@ -92,6 +92,8 @@ def training(input, output, regression, linearregression, classifier, decisiontr
             print(f"Graph saved at: {graph_path}")
         elif linearregression == "multicollinearity+":
             trainer.multicollinearity_and_model_equation()
+        elif linearregression == "predict your buying price":
+            trainer.predict_price()
         else:
             print("Invalid option for regression. Choose from: regression or multicollinearity+")
             return
