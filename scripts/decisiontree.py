@@ -50,11 +50,18 @@ class DecisionClass:
         # create a list of the predictions
         y_pred = tree_model.predict(X_test)
 
+        accuracy = accuracy_score(y_test, y_pred)
+        precision = precision_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+
         # display the precision and recall
-        print("Accuracy: ",round(100*accuracy_score(y_test, y_pred),1),"%")
-        print("Precision: ",round(100*precision_score(y_test, y_pred),1),"%")
-        print("Recall: ",round(100*recall_score(y_test, y_pred),1),"%")
-        print("F1 score: ",round(100*f1_score(y_test, y_pred),1),"%")
+        print("Accuracy: ",round(100*accuracy,1),"%")
+        print("Precision: ",round(100*precision,1),"%")
+        print("Recall: ",round(100*recall,1),"%")
+        print("F1 score: ",round(100*f1,1),"%")
+
+        return accuracy, precision, recall, f1
 
     def decision_tree_ac(self):
         """
@@ -77,11 +84,18 @@ class DecisionClass:
         # create a list of the predictions
         y_pred = tree_model.predict(X_test)
 
+        accuracy = accuracy_score(y_test, y_pred)
+        precision = precision_score(y_test, y_pred)
+        recall = recall_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred)
+
         # display the precision and recall
-        print("Accuracy: ",round(100*accuracy_score(y_test, y_pred),1),"%")
-        print("Precision: ",round(100*precision_score(y_test, y_pred),1),"%")
-        print("Recall: ",round(100*recall_score(y_test, y_pred),1),"%")
-        print("F1 score: ",round(100*f1_score(y_test, y_pred),1),"%")
+        print("Accuracy: ",round(100*accuracy,1),"%")
+        print("Precision: ",round(100*precision,1),"%")
+        print("Recall: ",round(100*recall,1),"%")
+        print("F1 score: ",round(100*f1,1),"%")
+
+        return accuracy, precision, recall, f1
         
     
 

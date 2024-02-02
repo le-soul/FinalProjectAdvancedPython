@@ -7,7 +7,6 @@ import pandas as pd
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
-from sklearn.feature_selection import f_regression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_squared_error
 from statsmodels.stats.outliers_influence import variance_inflation_factor
@@ -49,7 +48,6 @@ class PredictClass:
         """
         Shows the multicollinearity, the R squared of the linear regression and creates a model for use
         """
-
         
         X = self.df[['sq_mt_built', 'n_rooms', 'n_bathrooms', 'district_id' ,'has_parking', 'has_ac']]
         y = self.df['buy_price']
@@ -73,50 +71,61 @@ class PredictClass:
         vif_data["VIF"] = [variance_inflation_factor(X_with_const.values, i) for i in range(X_with_const.shape[1])]
 
         # Display the VIF values
-        print(vif_data)
+        print(f'\nMulticollinearity test(VIF)\n {vif_data}')
 
         r_squared = r2_score(y_test, y_pred)
-        print(f'R-squared: {r_squared}')
+        print(f'\nR-squared: {r_squared}')
 
         rmse = np.sqrt(mean_squared_error(y_test, y_pred))
         print(f'Root Mean Squared Error (RMSE): {rmse}')
 
-        f_statistic, p_values = f_regression(X_train, y_train)
+        X = sm.add_constant(X)
 
-        # Get the overall p-value
-        overall_p_value = p_values.mean()
-        print(f_statistic, overall_p_value)
+        # Split the data into training and testing sets
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+        # Create and fit the multiple linear regression model
+        model = sm.OLS(y_train, X_train)
+        result = model.fit()
+
+        print("\n", result.summary())
 
         # Get the coefficients and intercept
-        params = model.params
+        params = result.params
         intercept = params['const']
         coefficients = params.drop('const')
 
-        print("Buy Price =", end=" ")
+        print("\nMultiple regression model:\nBuy Price =", end=" ")
         for i in range(len(coefficients)):
-            coefficient_rounded = round(coefficients[i], 2)
+            coefficient_rounded = round(coefficients.iloc[i], 2)
             print(f"{coefficient_rounded} * {X.columns[i]}", end="")
             if i < len(coefficients) - 1:
                 print(" + ", end="")
-        print(f" + {round(intercept, 2)}") 
+        print(f" + {round(intercept, 2)}")
 
     def predict_price(self):
-        # Get user input for independent variables
-        sq_mt_built = float(input("Enter square meters built: "))
-        n_rooms = float(input("Enter number of rooms: "))
-        n_bathrooms = float(input("Enter number of bathrooms: "))
-        district_id = float(input("District 1: Arganzuela, District 2: Barajas, District 3: Carabanchel, District 4: Centro," 
-                                  "District 5: Chamartín, District 6: Chamberí, District 7: Ciudad Lineal, District 8: Fuencarral, District 9: Hortaleza,"
-                                  "District 10: Latina, District 11: Moncloa, District 12: Moratalaz, District 13: Puente de Vallecas, District 14: Retiro," 
-                                  "District 15: Salamanca, District 17: Tetuán, District 18: Usera, District 19: Vicálvaro, District 20: Villa de Vallecas,"
-                                  "District 21: Villaverde\nEnter district ID: "))
-        has_parking = int(input("Enter 1 if there is parking, 0 otherwise: "))
-        has_ac = int(input("Enter 1 if there is AC, 0 otherwise: "))
+        try:
+            # Get user input for independent variables
+            sq_mt_built = float(input("Enter square meters built: "))
+            n_rooms = float(input("Enter number of rooms: "))
+            n_bathrooms = float(input("Enter number of bathrooms: "))
+            district_id = float(input("District 1: Arganzuela, District 2: Barajas, District 3: Carabanchel, District 4: Centro,"
+                                    "District 5: Chamartín, District 6: Chamberí, District 7: Ciudad Lineal, District 8: Fuencarral, District 9: Hortaleza,"
+                                    "District 10: Latina, District 11: Moncloa, District 12: Moratalaz, District 13: Puente de Vallecas, District 14: Retiro,"
+                                    "District 15: Salamanca, District 17: Tetuán, District 18: Usera, District 19: Vicálvaro, District 20: Villa de Vallecas,"
+                                    "District 21: Villaverde\nEnter district ID: "))
+            has_parking = int(input("Enter 1 if there is parking, 0 otherwise: "))
+            has_ac = int(input("Enter 1 if there is AC, 0 otherwise: "))
 
-        # Calculate predicted price using coefficients and intercept
-        predicted_price = 3869.81 * sq_mt_built + -22704.11 * n_rooms + 105741.4 * n_bathrooms + \
-                      -8381.5 * district_id + -32317.3 * has_parking + 45670.57 * has_ac + -12905.74
+            # Calculate predicted price using coefficients and intercept
+            predicted_price = 3869.81 * sq_mt_built + -22704.11 * n_rooms + 105741.4 * n_bathrooms + \
+                            -8381.5 * district_id + -32317.3 * has_parking + 45670.57 * has_ac + -12905.74
 
-        predicted_price = round(predicted_price, 2)
+            predicted_price = round(predicted_price, 2)
 
-        print(predicted_price)
+            print(predicted_price)
+        except ValueError as ve:
+            print(f"Error: {ve}. Please enter a valid numeric value.")
+        except Exception as e:
+            print(f"An error occurred: {e}. Please try again.")
+
