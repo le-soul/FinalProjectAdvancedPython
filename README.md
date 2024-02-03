@@ -4,8 +4,8 @@ This project aims to predict housing prices in Madrid using machine learning tec
 ## Table of Contents
 1. [Installation](#installation)
 2. [Usage](#usage)
-3. [Project Structure](#project-structure)
-4. [Contributing](#contributing)
+3. [Data Visualization](#data-visualization)
+4. [Linear Regression](#linear-regression)
 5. [License](#license)
 
 ## Installation
@@ -78,19 +78,19 @@ python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr
 
 #### Predictions are separated into decision tree classification and linear regression.
 
-Linear Regression
+#### Linear Regression
 
-`Option 1:` Creates a multiple regression graph with buying price as the dependent variable
+`Option 1:` Creates a multiple regression graph with buying price as the dependent variable. I would like to note that I removed number of bathrooms due to it's theoretical multicollinearity with square metres built, but not number of rooms because even though it is theoretical multicollinearity its VIF is not that high
 ```
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "regression"
 ```
 
-`Option 2:` Creates a multiple regression graph with buying price as the dependent variable, but log has been used for buy_price and sq_mt_built.
+`Option 2:` Creates a multiple regression graph with buying price as the dependent variable, but log has been used for buy_price and sq_mt_built. The purpose of this is to reduce homoscedasticity, normalize the distribution of the data and it makes sense to talk about % when talking about square metres built. I did the same as mentioned earlier with bathrooms and rooms. The R squared is also shown and it is higher than the one that doesn't have log.
 ```
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "log_regression"
 ```
 
-`Option 3:` Shows information over the graphs such its R squared, their VIF values, p-values
+`Option 3:` Shows information over the graphs such its R squared, their VIF values, p-values.
 ```
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "multicollinearity+"
 ```
@@ -100,7 +100,7 @@ python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "predict your buying price"
 ```
 
-Decision Tree
+#### Decision Tree
 
 `Option 1:` This command predicts air conditioning appearance using a decision tree classifier. The classifier utilizes one input features: "buy_price" to predict whether a property has air conditioning or not.
 ```
@@ -129,3 +129,17 @@ Or individually, for example:
 python -m unittest tests/test_graphs.py
 ```
 This one should ran 6 tests OK.
+
+### Coverage
+
+You can also view the coverage by doing this
+```
+coverage run -m pytest
+```
+```
+coverage report
+```
+And ultimately view it in html
+```
+coverage html
+```

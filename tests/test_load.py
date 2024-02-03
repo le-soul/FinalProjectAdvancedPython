@@ -2,11 +2,11 @@
 Test loading of the dataset
 """
 
-from scripts.main import load_dataset
-
 import os
 import unittest
 import pandas as pd
+from scripts.main import load_dataset
+
 
 class LoadDatasetTest(unittest.TestCase):
 
@@ -20,7 +20,7 @@ class LoadDatasetTest(unittest.TestCase):
         """
 
         with self.assertRaises(TypeError):
-            load_dataset('test.txt')
+            load_dataset("test.txt")
 
     def test_load_dataset_file_not_found(self):
         """
@@ -28,7 +28,7 @@ class LoadDatasetTest(unittest.TestCase):
         """
         with self.assertRaises(FileNotFoundError):
             load_dataset("non_existent_file.csv")
-    
+
     def test_load_dataset_empty_csv(self):
         """
         Test loading an empty CSV file.
@@ -39,8 +39,6 @@ class LoadDatasetTest(unittest.TestCase):
             load_dataset("dataset/empty.csv")
         os.remove("dataset/empty.csv")
 
+
 if __name__ == "__main__":
     unittest.main()
-
-
-
