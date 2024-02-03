@@ -53,7 +53,7 @@ class CleaningClass:
         self.df['has_parking'] = self.df['has_parking'].astype(int)
         self.df['has_ac'] = self.df['has_ac'].astype(int)
         self.df['district_id'] = self.df['district_id'].astype(int)
-
+        
         return self.df
 
 

@@ -6,13 +6,12 @@ import sys
 sys.path.append('scripts')
 import click
 import pandas as pd
-import matplotlib.pyplot as plt
 import cleaning as cl
 
 from graphs import ViewClass
-from linearregression import PredictClass
-from decisiontree import DecisionClass
 from mainfunctions import MainClass
+from decisiontree import DecisionClass
+from linearregression import PredictClass
 
 def load_dataset(input):
     """

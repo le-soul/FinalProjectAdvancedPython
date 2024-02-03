@@ -1,3 +1,7 @@
+"""
+Defines test cases for the options in the command line
+"""
+
 import unittest
 from unittest.mock import MagicMock, patch
 import os
@@ -25,6 +29,9 @@ class TestPlotter(unittest.TestCase):
     @patch('scripts.mainfunctions.plt')  # Mock the plt module
     @patch('builtins.print')  
     def test_regression(self, print_mock, plt_mock):
+        """
+        
+        """
         # Create a mock for the trainer
         trainer_mock = MagicMock()
 
@@ -39,6 +46,9 @@ class TestPlotter(unittest.TestCase):
     
     @patch('scripts.mainfunctions.plt')  # Mock the plt module
     def test_classifier(self, plt_mock):
+        """
+        
+        """
         # Create a mock for the tree
         tree_mock = MagicMock()
 

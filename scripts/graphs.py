@@ -20,6 +20,7 @@ class ViewClass:
         corrmat = self.df.corr()
         f, ax = plt.subplots(figsize=(14, 12))
         sns.heatmap(corrmat, vmax=.8, square=True)
+        return self.df.corr()
 
     def price_skewness(self):
         """
@@ -28,6 +29,8 @@ class ViewClass:
 
         sns.histplot(self.df['buy_price'], kde=True, stat="density", kde_kws=dict(cut=3), alpha=.4, edgecolor=(1, 1, 1, .4), bins=40)
         print("Skewness: %f" % self.df['buy_price'].skew())
+        return self.df['buy_price'].skew()
+
 
     def most_exp_districts(self):
         """
@@ -82,12 +85,20 @@ class ViewClass:
         f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharey=True, figsize=(20, 10))
         ax1.scatter(self.df['built_year'], self.df['buy_price'], color='purple')
         ax1.set_title('Price and Year Built')
+        ax1.set_xlabel('Year Built')
+        ax1.set_ylabel('Buy Price')
         ax2.scatter(self.df['sq_mt_built'], self.df['buy_price'], color='purple')
         ax2.set_title('Price and Space')
+        ax2.set_xlabel('Square Meters Built')
+        ax2.set_ylabel('Buy Price')
         ax3.scatter(self.df['n_bathrooms'], self.df['buy_price'], color='purple')
         ax3.set_title('Price and number of Bathrooms')
+        ax3.set_xlabel('Number of Bathrooms')
+        ax3.set_ylabel('Buy Price')
         ax4.scatter(self.df['n_rooms'], self.df['buy_price'], color='purple')
         ax4.set_title('Price and number of Rooms')
+        ax4.set_xlabel('Number of Rooms')
+        ax4.set_ylabel('Buy Price')
 
         plt.tight_layout()
 

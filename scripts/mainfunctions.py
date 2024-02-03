@@ -50,6 +50,11 @@ class MainClass:
                 trainer.price_as_y()
                 plt.savefig(graph_path)
                 print(f"Graph saved at: {graph_path}")
+            elif linearregression == "log_regression":
+                graph_path = os.path.join(output, 'Log_Linear_Regression.png')
+                trainer.log_price_as_y()
+                plt.savefig(graph_path)
+                print(f"Graph saved at: {graph_path}")
             elif linearregression == "multicollinearity+":
                 trainer.multicollinearity_and_model_equation()
             elif linearregression == "predict your buying price":

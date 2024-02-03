@@ -1,9 +1,17 @@
+"""
+
+"""
+
 import unittest
 import pandas as pd
 from sklearn.datasets import make_classification
 from scripts.decisiontree import DecisionClass
 
 class TestDecisionClass(unittest.TestCase):
+    """
+    
+    """
+
     def setUp(self):
         # Generate a sample DataFrame for testing
         X, y = make_classification(n_samples=100, n_features=3, n_classes=2, random_state=42,
@@ -13,6 +21,9 @@ class TestDecisionClass(unittest.TestCase):
         self.df['has_ac'] = y
 
     def test_decision_tree_parking(self):
+        """
+        
+        """
         decision_class = DecisionClass(self.df)
         accuracy, precision, recall, f1 = decision_class.decision_tree_parking()
         
@@ -32,6 +43,9 @@ class TestDecisionClass(unittest.TestCase):
         self.assertLessEqual(f1 * 100, expected_max_percentage, "F1 score is greater than expected maximum percentage")
         
     def test_decision_tree_ac(self):
+        """
+        
+        """
         decision_class = DecisionClass(self.df)
         accuracy, precision, recall, f1 = decision_class.decision_tree_ac()
         

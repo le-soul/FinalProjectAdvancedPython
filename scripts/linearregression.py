@@ -41,29 +41,56 @@ class PredictClass:
         plt.ylabel('Buy Price')
         plt.legend()
         plt.title('Linear Regression: Actual vs. Predicted Buy Price')
+        return y_test, y_pred
+    
+    def log_price_as_y(self):
+        self.df1 = self.df.copy()
+        log_price = np.log(self.df1['buy_price'])
+        log_sq_mt_built = np.log(self.df1['sq_mt_built'])
+        # Then we add it to our data frame
+        self.df1['log_price'] = log_price
+        self.df1['log_sq_mt_built'] = log_sq_mt_built
+        #adding has storage room increases the r squared very slightly and makes the model more complex so i rather not include it.
+        X = self.df1[['log_sq_mt_built', 'n_rooms', 'n_bathrooms', 'district_id' ,'has_parking', 'has_ac']]
+        y = self.df1['log_price']
 
-        
+        # Split the data into training and testing sets
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+        # Create a linear regression model and fit it to the training data
+        model = LinearRegression()
+        model.fit(X_train, y_train)
+
+        # Make predictions on the test set
+        y_pred = model.predict(X_test)
+
+        # Plot the actual vs. predicted values
+        plt.scatter(X_test['log_sq_mt_built'], y_test, color='black', label='Actual')
+        plt.scatter(X_test['log_sq_mt_built'], y_pred, color='blue', label='Predicted')
+        plt.xlabel('Log of Square Meters Built')
+        plt.ylabel('Log of Buy Price')
+        plt.legend()
+        plt.title('Linear Regression: Actual vs. Predicted Log of Buy Price')
 
     def multicollinearity_and_model_equation(self):
         """
         Shows the multicollinearity, the R squared of the linear regression and creates a model for use
         """
-        
+    
         X = self.df[['sq_mt_built', 'n_rooms', 'n_bathrooms', 'district_id' ,'has_parking', 'has_ac']]
         y = self.df['buy_price']
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        model = LinearRegression()
-        model.fit(X_train, y_train)
+        sk_model = LinearRegression()
+        sk_model.fit(X_train, y_train)
 
-        y_pred = model.predict(X_test)
+        y_pred = sk_model.predict(X_test)
 
         # Add a constant term to the features matrix (required for statsmodels)
         X_with_const = sm.add_constant(X)
 
-        # Create and fit the linear regression model
-        model = sm.OLS(y, X_with_const).fit()
+        # Create and fit the linear regression model using statsmodels
 
         # Calculate VIF for each variable
         vif_data = pd.DataFrame()
@@ -84,9 +111,9 @@ class PredictClass:
         # Split the data into training and testing sets
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        # Create and fit the multiple linear regression model
-        model = sm.OLS(y_train, X_train)
-        result = model.fit()
+        # Create and fit the multiple linear regression model using statsmodels
+        sts_train = sm.OLS(y_train, X_train)
+        result = sts_train.fit()
 
         print("\n", result.summary())
 
@@ -102,6 +129,8 @@ class PredictClass:
             if i < len(coefficients) - 1:
                 print(" + ", end="")
         print(f" + {round(intercept, 2)}")
+        return vif_data, r_squared, rmse, result.summary()
+
 
     def predict_price(self):
         try:

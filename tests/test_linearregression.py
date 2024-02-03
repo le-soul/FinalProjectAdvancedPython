@@ -1,17 +1,15 @@
-"""
-
-"""
-
+import pytest
 from scripts.linearregression import PredictClass
 import pandas as pd
-import pytest
 from sklearn.datasets import make_regression
+import numpy as np
 
-class Test:
-
+class TestPredictClass:
     @pytest.fixture
     def example_data(self):
-        # Generate example data
+        """
+        Generate example data
+        """
         X, y = make_regression(n_samples=100, n_features=6, noise=0.1, random_state=42)
         df = pd.DataFrame(X, columns=['sq_mt_built', 'n_rooms', 'n_bathrooms', 'district_id', 'has_parking', 'has_ac'])
         df['buy_price'] = y
@@ -19,12 +17,18 @@ class Test:
 
     def test_price_as_y(self, example_data):
         predictor = PredictClass(example_data)
-        # No assertion as this method plots data
+        y_test, y_pred = predictor.price_as_y()
+        assert isinstance(y_test.values, np.ndarray)
+        # Add more assertions as needed
+
+
+    def test_log_price_as_y(self, example_data):
+        predictor = PredictClass(example_data)
+        # Add test logic here
 
     def test_multicollinearity_and_model_equation(self, example_data):
         predictor = PredictClass(example_data)
-        predictor.multicollinearity_and_model_equation()
-        
+        # Add test logic here
 
     def test_predict_price(self, monkeypatch):
         input_data = [
@@ -39,4 +43,4 @@ class Test:
         monkeypatch.setattr('builtins.input', lambda _: input_data.pop(0))
         
         predictor = PredictClass(None)
-        # No assertion as this method prints the predicted price
+        # Add test logic here

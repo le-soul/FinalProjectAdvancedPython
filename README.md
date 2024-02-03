@@ -39,10 +39,14 @@ python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs
 
 ### Data Visualization
 
+`Option for seeing null and duplicate values`
+```
+python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -dp
+```
+
 `Option 1:` Shows a box to see the correlation between variables in the database
 ```
 python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr "correlation"
-
 ```
 
 `Option 2:` Shows a graph where the skewness of the variable buy_price can be seen
@@ -78,16 +82,50 @@ Linear Regression
 
 `Option 1:` Creates a multiple regression graph with buying price as the dependent variable
 ```
-python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -r -ln "regression"
+python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "regression"
 ```
 
-`Option 2:` Shows information over the graphs such its R squared, their VIF values, p-values
+`Option 2:` Creates a multiple regression graph with buying price as the dependent variable, but log has been used for buy_price and sq_mt_built.
 ```
-python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -r -ln "multicollinearity+"
-```
-
-`Option 3:` Shows a bar graph where you can see the most expensive districts per average buying price
-```
-python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -r -ln "predict your buying price"
+python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "log_regression"
 ```
 
+`Option 3:` Shows information over the graphs such its R squared, their VIF values, p-values
+```
+python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "multicollinearity+"
+```
+
+`Option 4:` Allows the user to input the independent variables to predict what the buying price would be. For example, when called in the command line it will ask you "Enter square meters built: ", and you would need to input a positive integer.
+```
+python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "predict your buying price"
+```
+
+Decision Tree
+
+`Option 1:` This command predicts air conditioning appearance using a decision tree classifier. The classifier utilizes one input features: "buy_price" to predict whether a property has air conditioning or not.
+```
+python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -css -d "has ac"
+```
+
+`Option 2:`This command predicts parking availability using a decision tree classifier. The classifier utilizes two input features: "buy_price" and "district_id" to predict whether a property has parking or not.
+```
+python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -css -d "has parking"
+```
+
+### Tests
+
+You can use pytest and 17 tests should be passed if all things go correctly.
+```
+pytest
+```
+
+You can also use unittest to check if they run, except for test_linearregression.py as it doesn't recognize it as I'm importing pytest for it. So they should ran 14 tests. Use these to check them all at once:
+```
+python -m unittest
+```
+
+Or individually, for example:
+```
+python -m unittest tests/test_graphs.py
+```
+This one should ran 6 tests OK.
