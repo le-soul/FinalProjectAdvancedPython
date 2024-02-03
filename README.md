@@ -5,8 +5,9 @@ This project aims to predict housing prices in Madrid using machine learning tec
 1. [Installation](#installation)
 2. [Usage](#usage)
 3. [Data Visualization](#data-visualization)
-4. [Linear Regression](#linear-regression)
-5. [License](#license)
+4. [Predictions](#predictions)
+5. [Tests](#tests)
+6. [Coverage](#coverage)
 
 ## Installation
 ### Clone repository
@@ -20,7 +21,9 @@ First download FinalProjectAdvancedPython from the github repository:
     pip install -r requirements.txt
 
 ## Usage
-This section highlights the main functionalities of the project and the commands to run them. Follow the command-line prompts to view data, train models, and make predictions.
+This section highlights the main functionalities of the project and the commands to run them. Follow the command-line prompts to view data, train models, and make predictions. If at any moment you need to go to outputs click here.
+
+[Link to Outputs Folder](outputs/)
 
 `Foundation:` The first command will be used to access the options for the data visualization of the database.
 ```
@@ -44,32 +47,32 @@ python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs
 python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -dp
 ```
 
-`Option 1:` Shows a box to see the correlation between variables in the database
+`Option 1:` Shows a box to see the correlation between variables in the database. Output will be in the folder called outputs, named correlation_matrix.png
 ```
 python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr "correlation"
 ```
 
-`Option 2:` Shows a graph where the skewness of the variable buy_price can be seen
+`Option 2:` Shows a graph where the skewness of the variable buy_price can be seen. Output will be in the folder called outputs, named price_skewness.png
 ```
 python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr "price skewness"
 ```
 
-`Option 3:` Shows a bar graph where you can see the most expensive districts per average buying price
+`Option 3:` Shows a bar graph where you can see the most expensive districts per average buying price. Output will be in the folder called outputs, named most_exp_districts.png
 ```
 python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr "most exp districts"
 ```
 
-`Option 4:` Shows a bar graph where you can see the districts with most average rooms
+`Option 4:` Shows a bar graph where you can see the districts with most average rooms. Output will be in the folder called outputs, named most_rooms_districts.png
 ```
 python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr "most rooms districts"
 ```
 
-`Option 5:` Shows a bar graph where you can see the districts with most average bathrooms.
+`Option 5:` Shows a bar graph where you can see the districts with most average bathrooms. Output will be in the folder called outputs, named most_bathrooms_districts_matrix.png
 ```
 python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr "most bathrooms districts"
 ```
 
-`Option 6:` Show four scatter plots against price to see their visual correlation.
+`Option 6:` Show four scatter plots against price to see their visual correlation. Output will be in the folder called outputs, named scatter_price_x_variables.png
 ```
 python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr "price x variables"
 ```
@@ -80,17 +83,17 @@ python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr
 
 #### Linear Regression
 
-`Option 1:` Creates a multiple regression graph with buying price as the dependent variable. I would like to note that I removed number of bathrooms due to it's theoretical multicollinearity with square metres built, but not number of rooms because even though it is theoretical multicollinearity its VIF is not that high
+`Option 1:` Creates a multiple regression graph with buying price as the dependent variable. I would like to note that I removed number of bathrooms due to it's theoretical multicollinearity with square metres built, but not number of rooms because even though it is theoretical multicollinearity its VIF is not that high. Output will be in the folder called outputs, named Linear_Regression.png
 ```
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "regression"
 ```
 
-`Option 2:` Creates a multiple regression graph with buying price as the dependent variable, but log has been used for buy_price and sq_mt_built. The purpose of this is to reduce homoscedasticity, normalize the distribution of the data and it makes sense to talk about % when talking about square metres built. I did the same as mentioned earlier with bathrooms and rooms. The R squared is also shown and it is higher than the one that doesn't have log.
+`Option 2:` Creates a multiple regression graph with buying price as the dependent variable, but log has been used for buy_price and sq_mt_built. The purpose of this is to reduce homoscedasticity, normalize the distribution of the data and it makes sense to talk about % when talking about square metres built. I did the same as mentioned earlier with bathrooms and rooms. The R squared is also shown and it is higher than the one that doesn't have log. Output will be in the folder called outputs, named Log_Linear_Regression.png
 ```
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "log_regression"
 ```
 
-`Option 3:` Shows information over the graphs such its R squared, their VIF values, p-values.
+`Option 3:` Shows information over the graphs such its R squared, their VIF values, p-values. 
 ```
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "multicollinearity+"
 ```
@@ -102,14 +105,14 @@ python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "
 
 #### Decision Tree
 
-`Option 1:` This command predicts air conditioning appearance using a decision tree classifier. The classifier utilizes one input features: "buy_price" to predict whether a property has air conditioning or not.
+`Option 1:` This command predicts air conditioning appearance using a decision tree classifier. The classifier utilizes one input features: "buy_price" to predict whether a property has air conditioning or not. Output will be in the folder called outputs, named Decision_Tree_Ac.png
 ```
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -css -d "has ac"
 ```
 
 `Option 2:`This command predicts parking availability using a decision tree classifier. The classifier utilizes two input features: "buy_price" and "district_id" to predict whether a property has parking or not.
 ```
-python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -css -d "has parking"
+python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -css -d "has parking". Output will be in the folder called outputs, named Decision_Tree_Parking.png
 ```
 
 ### Tests
