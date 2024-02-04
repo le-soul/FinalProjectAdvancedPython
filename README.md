@@ -8,6 +8,7 @@ This project aims to predict housing prices in Madrid using machine learning tec
 4. [Predictions](#predictions)
 5. [Tests](#tests)
 6. [Coverage](#coverage)
+7. [Pylint and Flake8](#pylint-and-flake8)
 
 ## Installation
 It would be recommended to use the python version 3.11.7 and use an environment.
@@ -129,11 +130,24 @@ You can also use unittest to check if they run, except for test_linearregression
 python -m unittest
 ```
 
-Or individually, for example:
+Or individually:
+```
+python -m unittest tests/test_decisiontree.py
+```
+This one should ran 2 tests OK.
 ```
 python -m unittest tests/test_graphs.py
 ```
 This one should ran 6 tests OK.
+```
+python -m unittest tests/test_load.py
+```
+This one should ran 3 tests OK.
+```
+python -m unittest tests/test_mainfunctions.py
+```
+This one should ran 3 tests OK.
+
 
 ### Coverage
 
@@ -147,4 +161,19 @@ coverage report
 And ultimately view it in html
 ```
 coverage html
+```
+
+### Pylint and Flake8
+
+```
+pylint scripts
+```
+```
+pylint tests
+```
+```
+flake8 scripts
+```
+```
+flake8 tests
 ```
