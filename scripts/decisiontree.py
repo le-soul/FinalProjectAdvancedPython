@@ -43,18 +43,14 @@ class DecisionClass:
         X = self.df[input_features]
         y = self.df["has_parking"]
 
-        # perform the training-testing split
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, train_size=0.8, random_state=1
         )
 
-        # create the model
         tree_model = DecisionTreeClassifier(max_depth=3).fit(X_train, y_train)
 
-        # display the model
         self.plot_decision_tree(tree_model, input_features)
 
-        # create a list of the predictions
         y_pred = tree_model.predict(X_test)
 
         accuracy = accuracy_score(y_test, y_pred)
@@ -62,7 +58,6 @@ class DecisionClass:
         recall = recall_score(y_test, y_pred)
         f1 = f1_score(y_test, y_pred)
 
-        # display the precision and recall
         print("Accuracy: ", round(100 * accuracy, 1), "%")
         print("Precision: ", round(100 * precision, 1), "%")
         print("Recall: ", round(100 * recall, 1), "%")
@@ -79,18 +74,14 @@ class DecisionClass:
         X = self.df[input_features]
         y = self.df["has_ac"]
 
-        # perform the training-testing split
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, train_size=0.8, random_state=1
         )
 
-        # create the model
         tree_model = DecisionTreeClassifier(max_depth=2).fit(X_train, y_train)
 
-        # display the model
         self.plot_decision_tree(tree_model, input_features)
 
-        # create a list of the predictions
         y_pred = tree_model.predict(X_test)
 
         accuracy = accuracy_score(y_test, y_pred)
@@ -98,7 +89,6 @@ class DecisionClass:
         recall = recall_score(y_test, y_pred)
         f1 = f1_score(y_test, y_pred)
 
-        # display the precision and recall
         print("Accuracy: ", round(100 * accuracy, 1), "%")
         print("Precision: ", round(100 * precision, 1), "%")
         print("Recall: ", round(100 * recall, 1), "%")

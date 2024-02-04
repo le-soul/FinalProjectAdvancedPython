@@ -41,14 +41,14 @@ class TestViewClass(unittest.TestCase):
             self.assertEqual(corrmat.shape, (6, 6))
             self.assertTrue(
                 corrmat.loc["buy_price", "sq_mt_built"] > 0
-            )  # Expect positive correlation
+            ) 
             self.assertAlmostEqual(
                 corrmat.loc["district_id", "buy_price"], 0, places=4
-            )  # Expect near zero correlation
-            self.assertTrue((corrmat == corrmat.T).all().all())  # Check for symmetry
+            )
+            self.assertTrue((corrmat == corrmat.T).all().all())
             self.assertTrue(
                 (corrmat.values.diagonal() == 1).all()
-            )  # Check for diagonal values
+            )
 
         else:
             print("Error: correlation_matrix returned None")

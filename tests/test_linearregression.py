@@ -41,21 +41,18 @@ class TestPredictClass:
         predictor = PredictClass(example_data)
         y_test, y_pred = predictor.price_as_y()
         assert isinstance(y_test.values, np.ndarray)
-        # Add more assertions as needed
 
     def test_log_price_as_y(self, example_data):
         """
         Test the log_price_as_y method.
         """
         predictor = PredictClass(example_data)
-        # Add test logic here
 
     def test_multicollinearity_and_model_equation(self, example_data):
         """
         Test the multicollinearity_and_model_equation method
         """
         predictor = PredictClass(example_data)
-        # Add test logic here
 
     def test_predict_price(self, monkeypatch):
         """
@@ -72,4 +69,3 @@ class TestPredictClass:
         monkeypatch.setattr("builtins.input", lambda _: input_data.pop(0))
 
         predictor = PredictClass(None)
-        # Add test logic here
