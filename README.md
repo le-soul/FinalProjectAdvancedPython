@@ -85,7 +85,7 @@ python scripts/main.py view-data -i dataset/houses_Madrid.csv -o outputs -pl -gr
 
 #### Linear Regression
 
-`Option 1:` Creates a multiple regression graph with buying price as the dependent variable. I would like to note that I removed number of bathrooms due to it's theoretical multicollinearity with square metres built, but not number of rooms because even though it is theoretical multicollinearity its VIF is not that high. Output will be in the folder called outputs, named Linear_Regression.png
+`Option 1:` Creates a multiple regression graph with buying price as the dependent variable. I would like to note that I removed number of bathrooms due to it's theoretical multicollinearity with square metres built, but not number of rooms because even though it is theoretical multicollinearity its VIF is not that high. Districts was turned into dummies and still gave multicollinearity to the model, so I removed it. Output will be in the folder called outputs, named Linear_Regression.png
 ```
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "regression"
 ```

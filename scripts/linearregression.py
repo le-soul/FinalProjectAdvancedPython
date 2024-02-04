@@ -28,7 +28,7 @@ class PredictClass:
         """
         Perform linear regression on buy price.
         """
-        X = self.df[["sq_mt_built", "n_rooms", "district_id", "has_parking", "has_ac"]]
+        X = self.df[["sq_mt_built", "n_rooms", "has_parking", "has_ac"]]
         y = self.df["buy_price"]
 
         X_train, X_test, y_train, y_test = train_test_split(
@@ -59,7 +59,7 @@ class PredictClass:
         self.df1["log_sq_mt_built"] = log_sq_mt_built
 
         X = self.df1[
-            ["log_sq_mt_built", "n_rooms", "district_id", "has_parking", "has_ac"]
+            ["log_sq_mt_built", "n_rooms", "has_parking", "has_ac"]
         ]
         y = self.df1["log_price"]
 
@@ -104,7 +104,7 @@ class PredictClass:
         Shows the multicollinearity, the R squared of the linear regression and creates a model for use
         """
 
-        X = self.df[["sq_mt_built", "n_rooms", "district_id", "has_parking", "has_ac"]]
+        X = self.df[["sq_mt_built", "n_rooms", "has_parking", "has_ac"]]
         y = self.df["buy_price"]
 
         X_train, X_test, y_train, y_test = train_test_split(
@@ -164,26 +164,16 @@ class PredictClass:
         """
         try:
             sq_mt_built = float(input("Enter square meters built: "))
-            district_id = float(
-                input(
-                    "District 1: Arganzuela, District 2: Barajas, District 3: Carabanchel, District 4: Centro,"
-                    "District 5: Chamartín, District 6: Chamberí, District 7: Ciudad Lineal, District 8: Fuencarral, District 9: Hortaleza,"
-                    "District 10: Latina, District 11: Moncloa, District 12: Moratalaz, District 13: Puente de Vallecas, District 14: Retiro,"
-                    "District 15: Salamanca, District 17: Tetuán, District 18: Usera, District 19: Vicálvaro, District 20: Villa de Vallecas,"
-                    "District 21: Villaverde\nEnter district ID: "
-                )
-            )
             n_rooms = float(input("Enter number of rooms: "))
             has_parking = int(input("Enter 1 if there is parking, 0 otherwise: "))
             has_ac = int(input("Enter 1 if there is AC, 0 otherwise: "))
 
             predicted_price = (
-                4558.89 * sq_mt_built
-                + -2850.0 * n_rooms
-                + -8883.04 * district_id
-                + -2307.34 * has_parking
-                + 64620.74 * has_ac
-                + 29173.62
+                4605.19 * sq_mt_built 
+                + -3637.74 * n_rooms 
+                + -14343.35 * has_parking 
+                + 69065.09 * has_ac 
+                + -60071.3
             )
             predicted_price = round(predicted_price, 2)
 
