@@ -190,3 +190,5 @@ class PredictClass:
             print(predicted_price)
         except ValueError as ve:
             print(f"Error: {ve}. Please enter a valid numeric value.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
