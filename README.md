@@ -10,12 +10,14 @@ This project aims to predict housing prices in Madrid using machine learning tec
 6. [Coverage](#coverage)
 
 ## Installation
+It would be recommended to use the python version 3.11.7 and use an environment.
 ### Clone repository
 First download FinalProjectAdvancedPython from the github repository:
 
     git clone https://github.com/le-soul/FinalProjectAdvancedPython.git
 
 ### Navigate to the repository
+    cd FinalProjectAdvancedPython
 
 ### Install dependencies
     pip install -r requirements.txt
@@ -110,9 +112,9 @@ python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -r -ln "
 python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -css -d "has ac"
 ```
 
-`Option 2:`This command predicts parking availability using a decision tree classifier. The classifier utilizes two input features: "buy_price" and "district_id" to predict whether a property has parking or not.
+`Option 2:`This command predicts parking availability using a decision tree classifier. The classifier utilizes two input features: "buy_price" and "district_id" to predict whether a property has parking or not. . Output will be in the folder called outputs, named Decision_Tree_Parking.png
 ```
-python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -css -d "has parking". Output will be in the folder called outputs, named Decision_Tree_Parking.png
+python scripts/main.py training -i dataset/houses_Madrid.csv -o outputs -css -d "has parking"
 ```
 
 ### Tests
