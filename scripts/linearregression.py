@@ -163,17 +163,23 @@ class PredictClass:
         Predict buy price based on user input.
         """
         try:
+            beta_1 = 4605.19
+            beta_2 = -3637.74
+            beta_3 = -14343.35
+            beta_4 = 69065.09
+            intercept = -60071.3
+
             sq_mt_built = float(input("Enter square meters built: "))
             n_rooms = float(input("Enter number of rooms: "))
             has_parking = int(input("Enter 1 if there is parking, 0 otherwise: "))
             has_ac = int(input("Enter 1 if there is AC, 0 otherwise: "))
 
             predicted_price = (
-                4605.19 * sq_mt_built 
-                + -3637.74 * n_rooms 
-                + -14343.35 * has_parking 
-                + 69065.09 * has_ac 
-                + -60071.3
+                beta_1 * sq_mt_built 
+                + beta_2 * n_rooms 
+                + beta_3 * has_parking 
+                + beta_4 * has_ac 
+                + intercept
             )
             predicted_price = round(predicted_price, 2)
 
